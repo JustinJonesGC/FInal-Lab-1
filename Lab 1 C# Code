@@ -1,0 +1,151 @@
+
+
+using System;
+
+
+
+namespace lab2
+
+{
+
+    internal class lab2
+
+    {
+
+        private static void Main(string[] args)
+
+        {
+
+            Console.WriteLine("Would you like to compare 3 numbers to see if their corresponding place is same total?");                //prompts user at start of code
+
+            int userInput = Console.ReadLine();
+
+
+
+            if (userInput != null && userInput.Equals("yes", StringComparison.CurrentCultureIgnoreCase))                               //if no errors are made in user entry, the code will then ask user for 
+                                                                                                                                       // two whole digit numbers
+
+            {
+
+                int firstNum = GetIntFromUser("Please enter a three digit whole number");
+
+                int secondNum = GetIntFromUser("Please enter a three digit whole number");
+
+
+
+                Console.WriteLine(Compare(firstNum, secondNum) ? "True" : "False");
+
+            }
+
+            else
+
+            {
+
+                Console.WriteLine("invalid data entry");                                //If incorrect data is put in by user, a "invalid data entry message will be displayed"
+
+            }
+            
+
+            Console.ReadKey();
+
+        }
+
+
+        
+
+        public static int GetIntFromUser(string msg)                                    //method is created to get number from user, as is a paramater containing a string.
+
+        {
+
+            while (true)
+
+            {
+
+                Console.WriteLine(msg);
+
+                string userNum = Console.ReadLine();                                
+
+
+
+                if (userNum != null)
+
+                {
+
+                    int result;
+
+                    if (int.TryParse(userNum, out result) && userNum.Length == 3)
+
+                    {
+
+                        return result;
+
+                    }
+
+                    if (userNum.Equals("no", StringComparison.CurrentCultureIgnoreCase))
+
+                    {
+
+                        Console.WriteLine("invalid data entry.");
+
+                        Environment.Exit(0);
+
+                    }
+
+                }
+
+                
+
+            }
+
+        }
+
+
+
+        public static bool Compare(int a, int b)
+
+        {
+
+            int lastDigitA = a % 10;
+
+            int lastDigitB = b % 10;
+
+            int sumTotal = lastDigitA + lastDigitB;
+
+
+
+            do
+
+            {
+
+                lastDigitA = a % 10;
+
+                lastDigitB = b % 10;
+
+                a = a / 10;
+
+                b = b / 10;
+
+
+
+                int sumCompare = lastDigitA + lastDigitB;
+
+
+
+                if (sumCompare != sumTotal)
+
+                {
+
+                    return false;
+
+                }
+
+            } while (b != 0);
+
+            return true;
+
+        }
+
+    }
+
+}
+
